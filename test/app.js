@@ -8,3 +8,4 @@ module0.innerHTML = `
     <com-input type="range" value="0" min="-32" max="32" step="1"></com-input>
 </com-parameter>
 `;
+

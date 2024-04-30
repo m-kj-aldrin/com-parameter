@@ -1,0 +1,76 @@
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  width: 100%;
+
+  position: relative;
+
+  --track-h: 2px;
+  --thumb-h: 8px;
+  --thumb-w: 8px;
+  --thumb-color: currentColor;
+  --track-color: currentColor;
+
+  --number-pos: calc(var(--norm-value, 0) * 100%);
+  --number-value: "0";
+}
+
+input[type="range"]::after {
+  display: block;
+  content: var(--number-value);
+  position: absolute;
+
+  left: var(--number-pos);
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  background: var(--track-color);
+  height: var(--track-h);
+}
+
+input[type="range"]::-moz-range-track {
+  background: var(--track-color);
+  height: var(--track-h);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  transform: translateY(calc((var(--thumb-h) / -2) + var(--track-h) / 2));
+  background-color: var(--thumb-color);
+
+  border-radius: 50%;
+  height: var(--thumb-h);
+  width: var(--thumb-w);
+}
+
+input[type="range"]::-moz-range-thumb {
+  border: none;
+  border-radius: 0;
+  background-color: var(--thumb-color);
+
+  border-radius: 50%;
+  height: var(--thumb-h);
+  width: var(--thumb-w);
+}
+
+input:focus {
+  outline: 1px currentColor solid;
+  outline-offset: 1px;
+}
+
+input[type="range"]:focus {
+  outline: none;
+}
+
+input[type="range"]:focus::-webkit-slider-thumb {
+  outline: 1px solid currentColor;
+  outline-offset: 1px;
+}
+
+input[type="range"]:focus::-moz-range-thumb {
+  outline: 1px solid currentColor;
+  outline-offset: 1px;
+}

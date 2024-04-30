@@ -1,3 +1,7 @@
+let inputResetText = await (await fetch("/src/style/input_reset.css")).text();
+let inputResetStyleSheet = new CSSStyleSheet();
+inputResetStyleSheet.replaceSync(inputResetText);
+
 const template = document.createElement("template");
 template.innerHTML = `
 `;
@@ -25,6 +29,8 @@ export class CustomInput extends HTMLElement {
     super();
 
     this.attachShadow({ mode: "open" });
+
+    this.shadowRoot.adoptedStyleSheets = [inputResetStyleSheet];
 
     this.shadowRoot.append(template.content.cloneNode(true));
 
@@ -98,5 +104,19 @@ export class CustomInput extends HTMLElement {
       },
       { signal: this.#listenerController.signal }
     );
+
+    this.shadowRoot.addEventListener("input", this.#inputHandler.bind(this));
+  }
+
+  /**@param {HTMLInputEvent} e */
+  #inputHandler(e) {
+    let value = e.target.value;
+    let min = e.target.min;
+    let max = e.target.max;
+
+    let normalValue = (+value - +min) / (Math.abs(+min) + +max);
+
+    e.target.style.setProperty("--number-value", `'${normalValue}'`);
+    e.target.style.setProperty("--norm-value", `${normalValue}`);
   }
 }
