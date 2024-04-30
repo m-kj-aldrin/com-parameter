@@ -55,11 +55,6 @@ input[type="range"]::-moz-range-thumb {
     width: 2px;
 }
 
-/* input:focus {
-    outline: 1px currentColor solid;
-    outline-offset: 1px;
-} */
-
 input[type="range"]:focus {
     outline: none;
 }
@@ -86,6 +81,8 @@ input[type="number"] {
     -moz-appearance: textfield;
 }
 
-body{
-    /* text-align: center; */
+select {
+    background-color: #fff;
+    border: 1px currentColor solid;
+    border-radius: 2px;
 }

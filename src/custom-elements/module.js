@@ -11,14 +11,23 @@ template.innerHTML = `
         border-radius: 2px;
     }
     #header{
-        background: #f5f5f5;
-        padding: 2px 8px;
+        padding: 4px 8px;
+
+        border-bottom: 1px currentColor solid;
 
         display: flex;
         justify-content: space-between;
 
         gap: 16px;
     }
+
+    :host([type='pth']) #header{
+        border-bottom: none;
+    }
+    :host([type='pth']) #body{
+        display: none;
+    }
+
     #body{
         padding: 8px;
         display: flex;
@@ -30,11 +39,11 @@ template.innerHTML = `
     }
 </style>
 <div id="header">
-  <slot name="type"></slot>
-  <button data-action="remove">del</button>
+    <slot name="type"></slot>
+    <button data-action="remove">del</button>
 </div>
 <div id="body">
-  <slot></slot>
+    <slot></slot>
 </div>
 `;
 
@@ -49,19 +58,19 @@ lfoTemplate.innerHTML = `
 <div slot="type">lfo</div>
 
 <com-parameter order="0">
-  <com-input type="range" value="20.00" min="0" max="200" step="0.001">
-    <label>frq</label>
-  </com-input>
+    <com-input type="range" value="20.00" min="0" max="200" step="0.001">
+        <label slot="label">frq</label>
+    </com-input>
 </com-parameter>
 <com-parameter order="1">
-  <com-input type="range" value="0.25" min="0" max="1" step="0.001">
-    <label>amp</label>
-  </com-input>
+    <com-input type="range" value="0.25" min="0" max="1" step="0.001">
+        <label slot="label">amp</label>
+    </com-input>
 </com-parameter>
 <com-parameter order="2">
-  <com-input type="range" value="12" min="0" max="16" step="1">
-    <label>selector</label>
-  </com-input>
+    <com-input type="select" value="1" list="sine,square,ramp-up,ramp-down" >
+        <label slot="label">wave-select</label>
+    </com-input>
 </com-parameter>
 `;
 
@@ -71,9 +80,9 @@ bchTemplate.innerHTML = `
 <div slot="type">bch</div>
 
 <com-parameter order="0">
-  <com-input type="range" value="0.5" step="0.001">
-    <label>cha</label>
-  </com-input>
+    <com-input type="range" value="0.5" step="0.001">
+        <label slot="label">cha</label>
+    </com-input>
 </com-parameter>
 `;
 
@@ -108,8 +117,9 @@ export class ModuleElement extends HTMLElement {
         if (template && !this.#type) {
             this.append(template.content.cloneNode(true));
             this.#type = type;
+            this.setAttribute("type", type);
             if (type == "pth") {
-                this.shadowRoot.getElementById("body").remove();
+                // this.shadowRoot.getElementById("body").remove();
             }
         }
     }

@@ -6,6 +6,10 @@ template.innerHTML = `
     :host{
         display: block;
     }
+    :host(:hover){
+        outline: 1px #0004 dashed;
+        outline-offset: 2px;
+    }
 </style>
 <slot></slot>
 `;

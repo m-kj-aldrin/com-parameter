@@ -11,12 +11,13 @@ template.innerHTML = `
     }
     ::slotted(label){}
 </style>
-<slot></slot>
+<slot name="label"></slot>
 `;
 
 const rangeTemplate = document.createElement("template");
 rangeTemplate.innerHTML = `
 <style>
+
     :host > div{
         position: relative;
     }
@@ -60,6 +61,11 @@ numberTemplate.innerHTML = `
 const textTemplate = document.createElement("template");
 textTemplate.innerHTML = `
 <input type="text" />
+`;
+
+const selectTemplate = document.createElement("template");
+selectTemplate.innerHTML = `
+<select></select>
 `;
 
 /**
@@ -109,6 +115,7 @@ export class CustomInput extends HTMLElement {
 
     #setInputOptions({ min, max, step, value }) {
         if (this.#type == "text") return;
+        if (this.#type == "select") return;
 
         let inputElement = this.inputElement;
 
@@ -139,6 +146,10 @@ export class CustomInput extends HTMLElement {
             case "number":
                 this.shadowRoot.append(numberTemplate.content.cloneNode(true));
                 break;
+            case "select":
+                this.shadowRoot.append(selectTemplate.content.cloneNode(true));
+                this.#setupSelect();
+                break;
             default:
                 this.shadowRoot.append(textTemplate.content.cloneNode(true));
                 type = "text";
@@ -148,12 +159,32 @@ export class CustomInput extends HTMLElement {
         this.#type = type;
     }
 
+    #setupSelect() {
+        let listAttr = this.getAttribute("list");
+        const selectElement = this.shadowRoot.querySelector("select");
+
+        if (listAttr) {
+            let list = listAttr.split(",");
+
+            let listElements = list.map((type, i) => {
+                let optionElement = document.createElement("option");
+                optionElement.value = `${i}`;
+                optionElement.textContent = type;
+                return optionElement;
+            });
+
+            selectElement.append(...listElements);
+        }
+
+        this.value = this.getAttribute("value") ?? 0;
+    }
+
     get value() {
-        return this.shadowRoot.querySelector("input").value;
+        return this.shadowRoot.querySelector("input,select").value;
     }
 
     set value(value) {
-        this.shadowRoot.querySelector("input").value = value;
+        this.shadowRoot.querySelector("input,select").value = value;
     }
 
     attachListeners() {
@@ -194,12 +225,5 @@ export class CustomInput extends HTMLElement {
         if (setValue) {
             outputInput.value = `${value}`;
         }
-
-        // let output = this.shadowRoot.querySelector("output");
-        // output.style.left = `${normalValue * 100}%`;
-        // output.textContent = `${value}`;
-
-        // inputElement.style.setProperty("--number-value", `'${value}'`);
-        // inputElement.style.setProperty("--norm-value", `${normalValue}`);
     }
 }
