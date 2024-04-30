@@ -4,6 +4,18 @@ inputResetStyleSheet.replaceSync(inputResetText);
 
 const template = document.createElement("template");
 template.innerHTML = `
+<style>
+  :host{
+    padding-top: 12px;
+    display: flex;
+    flex-direction: column;
+  }
+  ::slotted(label){
+    margin-top: 2px;
+    order: 1;
+  }
+</style>
+<slot></slot>
 `;
 
 const rangeTemplate = document.createElement("template");
@@ -112,7 +124,9 @@ export class CustomInput extends HTMLElement {
 
   /**@param {HTMLInputEvent} e */
   #inputHandler(e) {
-    this.#updateOutput();
+    if (this.#type == "range") {
+      this.#updateOutput();
+    }
   }
 
   #updateOutput() {
