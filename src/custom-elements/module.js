@@ -1,3 +1,7 @@
+let resetText = await (await fetch("/src/style/reset.css")).text();
+let resetStyleSheet = new CSSStyleSheet();
+resetStyleSheet.replaceSync(resetText);
+
 const template = document.createElement("template");
 template.innerHTML = `
 <style>
@@ -9,8 +13,11 @@ template.innerHTML = `
   #header{
     background: #f5f5f5;
     padding: 2px 8px;
+
     display: flex;
     justify-content: space-between;
+
+    gap: 16px;
   }
   #body{
     padding: 8px;
@@ -82,6 +89,8 @@ export class ModuleElement extends HTMLElement {
 
     this.attachShadow({ mode: "open" });
 
+    this.shadowRoot.adoptedStyleSheets = [resetStyleSheet]
+
     this.shadowRoot.append(template.content.cloneNode(true));
 
     this.#attachListeners();
@@ -96,6 +105,9 @@ export class ModuleElement extends HTMLElement {
     if (template && !this.#type) {
       this.append(template.content.cloneNode(true));
       this.#type = type;
+      if (type == "pth") {
+        this.shadowRoot.getElementById("body").remove();
+      }
     }
   }
 
