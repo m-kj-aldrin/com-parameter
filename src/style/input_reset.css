@@ -5,6 +5,9 @@ input[type="range"] {
   cursor: pointer;
   width: 100%;
 
+  margin: 0;
+  padding: 4px 0;
+
   position: relative;
 
   --track-h: 2px;
@@ -31,8 +34,9 @@ input[type="range"]::after {
   content: var(--number-value);
   position: absolute;
 
-  margin-left: 6px;
-  bottom: 4px;
+  transform: translate(-50%,-100%);
+  margin-left: 0px;
+  top: 0;
   left: var(--number-pos);
 }
 
@@ -52,9 +56,11 @@ input[type="range"]::-webkit-slider-thumb {
   transform: translateY(calc((var(--thumb-h) / -2) + var(--track-h) / 2));
   background-color: var(--thumb-color);
 
-  border-radius: 50%;
+  /* transform: translate(-4px, -3px); */
   height: var(--thumb-h);
-  width: var(--thumb-w);
+  width: 2px;
+  /* width: var(--thumb-w);
+  border-radius: 50%; */
 }
 
 input[type="range"]::-moz-range-thumb {
