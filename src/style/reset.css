@@ -1,16 +1,17 @@
 button {
-  background-color: #fff;
-  border: 1px currentColor solid;
+    background-color: #fff;
+    border: 1px currentColor solid;
 
-  padding: 0.125em 0.35em;
-  line-height: 1;
-  border-radius: 2px;
-  font-family: inherit;
-  color: inherit;
+    padding: 0.125em 0.35em;
+    line-height: 1;
+    border-radius: 2px;
+    font-family: inherit;
+    font-size: 10px;
+    color: inherit;
 
-  cursor: pointer;
+    cursor: pointer;
 }
 
 button:hover {
-  filter: invert(1);
+    filter: invert(1);
 }
