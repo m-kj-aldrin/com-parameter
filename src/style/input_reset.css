@@ -1,3 +1,7 @@
+input{
+  font-family: inherit;
+}
+
 input[type="range"] {
   -webkit-appearance: none;
   appearance: none;

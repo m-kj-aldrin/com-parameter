@@ -2,6 +2,11 @@ import { CustomInput } from "./input.js";
 
 const template = document.createElement("template");
 template.innerHTML = `
+<style>
+  :host{
+    display: block;
+  }
+</style>
 <slot></slot>
 `;
 

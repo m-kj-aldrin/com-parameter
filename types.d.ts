@@ -2,6 +2,8 @@ import { CustomInput } from "./src/custom-elements/input";
 import { ModuleElement } from "./src/custom-elements/module";
 import { ParameterElement } from "./src/custom-elements/parameter";
 
+type ModuleTypes = "pth" | "lfo" | "bch";
+
 declare global {
   interface HTMLElementTagNameMap {
     "com-module": ModuleElement;
