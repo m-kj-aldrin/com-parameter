@@ -49,7 +49,10 @@ export class ParameterElement extends HTMLElement {
   #slotHandler(e) {
     for (const element of e.target.assignedElements({ flatten: true })) {
       if (!(element instanceof CustomInput)) {
-        console.error("Only 'com-input' elements are allowed inside a 'com-parameter'", this);
+        console.error(
+          "Only 'com-input' elements are allowed inside a 'com-parameter'",
+          this
+        );
         element.remove();
       }
     }

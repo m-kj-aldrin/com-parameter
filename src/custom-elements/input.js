@@ -66,6 +66,8 @@ export class CustomInput extends HTMLElement {
     inputElement.max = max;
     inputElement.step = step;
     inputElement.value = value;
+
+    this.#updateOutput();
   }
 
   /**@param {string} type */
@@ -110,13 +112,18 @@ export class CustomInput extends HTMLElement {
 
   /**@param {HTMLInputEvent} e */
   #inputHandler(e) {
-    let value = e.target.value;
-    let min = e.target.min;
-    let max = e.target.max;
+    this.#updateOutput();
+  }
+
+  #updateOutput() {
+    let inputElement = this.inputElement;
+    let value = inputElement.value;
+    let min = inputElement.min;
+    let max = inputElement.max;
 
     let normalValue = (+value - +min) / (Math.abs(+min) + +max);
 
-    e.target.style.setProperty("--number-value", `'${normalValue}'`);
-    e.target.style.setProperty("--norm-value", `${normalValue}`);
+    inputElement.style.setProperty("--number-value", `'${value}'`);
+    inputElement.style.setProperty("--norm-value", `${normalValue}`);
   }
 }

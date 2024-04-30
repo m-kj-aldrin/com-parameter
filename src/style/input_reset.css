@@ -17,11 +17,22 @@ input[type="range"] {
   --number-value: "0";
 }
 
+input[type="range"]:hover::after {
+  opacity: 1;
+  transition-delay: 0ms;
+}
+
 input[type="range"]::after {
+  opacity: 0.25;
+  transition: opacity 125ms ease;
+  transition-delay: 500ms;
+  font-family: monospace;
   display: block;
   content: var(--number-value);
   position: absolute;
 
+  margin-left: 3px;
+  bottom: 4px;
   left: var(--number-pos);
 }
 
